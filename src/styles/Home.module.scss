@@ -1,3 +1,21 @@
-.title{
-  color: red;
+.outerContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.videoBox {
+  width: 675.31px;
+  height: 415.92px;
+  background-color: gray;
+  margin-top: 121.1px;
+  margin-bottom: 111.99px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.videoInfo{
+  background-color: var(--green-500);
+  margin-bottom: 50px;
+  text-align: center;
+  
 }
