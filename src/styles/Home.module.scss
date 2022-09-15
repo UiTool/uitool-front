@@ -1,3 +1,31 @@
-.title{
-  color: red;
+.outerContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.0625rem;
+  margin-right: 1.375rem;
+}
+
+.videoBox {
+  text-align: center;
+  width: 42.206875rem;
+  height: 25.995rem;
+  background-color: #D9D9D9;
+  margin-top: 7.56875rem;
+  margin-bottom: 6.999375rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.videoInfo{
+  background-color: var(--green-500);
+  margin-bottom: 3.125rem;
+  text-align: center;
 }
