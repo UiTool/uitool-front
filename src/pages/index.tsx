@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Image from 'next/image'
 import type { NextPage } from 'next'
 import { Header } from '../components/header'
@@ -31,16 +30,3 @@ const Home: NextPage = () => {
 }
 
 export default Home
-=======
-import type { NextPage } from 'next'
-
-import styles from '../styles/Home.module.scss'
-
-const Home: NextPage = () => {
-  return (
-    <h1 className={styles.title}>Home!</h1>
-  )
-}
-
-export default Home
->>>>>>> origin/prd
