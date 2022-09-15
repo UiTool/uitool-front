@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--green-700);
+
+  span {
+    padding: 1rem 4.75rem;
+  }
+=======
 .header{
   background-color: #8fad88;
   height: 9.375rem;
@@ -6,4 +18,5 @@
   span {
     padding: 1rem 4.75rem;
   }
+>>>>>>> origin/prd
 }
