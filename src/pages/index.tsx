@@ -12,10 +12,10 @@ const Home: NextPage = () => {
     <>
       <Header />
       <div className={styles.outerContainer}>
-        <div className={styles.buttons}>
+        {/* <div className={styles.buttons}>
           <Image src={dashboard_button} alt="Logo UI Tools" />
           <Image src={logout_button} alt="Login" />
-        </div>
+        </div> */}
         <div className={styles.videoBox}>
           <span>VÍDEO</span>
         </div>

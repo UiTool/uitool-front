@@ -73,6 +73,11 @@
     background-color: #a66226;
     border: none;
     cursor: pointer;
+    transition: filter 0.2s;
+    
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
   input{
     margin: 0 1rem;
