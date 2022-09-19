@@ -4,13 +4,14 @@ import { useState } from 'react';
 
 import styles from '../../styles/Dashboard.module.scss'
 import Menu from './_menu';
+import { useSession } from 'next-auth/react';
 
 interface ModalProps{
   isOpen: boolean;
   onClose(): void,
 }
 const Modal: React.FC<ModalProps> = ({isOpen, onClose}) => {
-  return (
+   return (
     <div className={`${styles.modal_container} ${isOpen ? styles.modal_open : ''}`}>
       <p className={styles.modal_btnClose} onClick={() => onClose()}>Fechar</p>
       <div>

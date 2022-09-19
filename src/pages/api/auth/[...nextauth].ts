@@ -1,3 +1,4 @@
+import { api } from './../../../services/api';
 import NextAuth from "next-auth"
 import FacebookProvider from "next-auth/providers/facebook"
 import CredentialsProvider from "next-auth/providers/credentials"
@@ -17,35 +18,28 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
+        console.log('entrou')
         const payload = {
           email: credentials?.email,
           password: credentials?.password,
         }; 
 
-        const res = await fetch('http://localhost:4003/account/login', {
-          method: 'POST',
-          body: JSON.stringify(payload),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        const user = await res.json();
+        const res = await api.post('/account/login', payload)
+        const { data } = res;
 
-        if (!res.ok) {
-          throw new Error(user.exception);
+        if (res.status != 200) {
+          throw new Error(data.exception);
         }
-        // If no error and we have user data, return it
-        if (res.ok && user) {
+       
+        if (data) {
           const response = {
-            name: user.user.name,
-            email: user.user.email,
-            token: user.token
+            name: data.user.name,
+            email: data.user.email,
+            token: data.token
           }
           return response;
         }
 
-        // Return null if user data could not be retrieved
         return null;
       },
     }),
@@ -73,8 +67,7 @@ export const authOptions = {
       return token;
     },
     async session({ session, token } : any) {
-      session.user.accessToken = token.accessToken;
-      console.log(session)
+      session.accessToken = token.accessToken;
       return session;
     },
   },
@@ -88,7 +81,7 @@ export const authOptions = {
       }
       switch (account.provider.toLowerCase()) {
         case "google":
-          user.accessToken = await fetch("http://localhost:4003/login-google", {
+          user.token = await fetch("http://localhost:4003/login-google", {
             method: 'POST',
             body: JSON.stringify(payLoad),
             headers: { "Content-Type": "application/json" }
@@ -96,7 +89,7 @@ export const authOptions = {
           return true;
 
         case "facebook":
-          user.accessToken = await fetch("http://localhost:4003/login-facebook", {
+          user.token = await fetch("http://localhost:4003/login-facebook", {
             method: 'POST',
             body: JSON.stringify(payLoad),
             headers: { "Content-Type": "application/json" }

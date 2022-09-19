@@ -5,12 +5,12 @@ import logo from '../../public/logo.svg'
 import Link from 'next/link'
 import { LoginButton } from '../LoginButton'
 
-export function Header() {
+export const Header: React.FC = () => {
   return (
     <>
     <header className={styles.headerContainer}>
       <span  className={styles.logo}>
-       <Link href='/'><Image src={logo} alt="Logo UI Tools"/></Link>
+       <Link href='/'><a><Image src={logo} alt="Logo UI Tools"/></a></Link>
       </span>
       <span className={styles.login}>
         <LoginButton />

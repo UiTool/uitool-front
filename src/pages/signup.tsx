@@ -40,7 +40,7 @@ const Signup: NextPage = () => {
             </div>
           </form>
           <div className={styles.pass_alternate}>
-            <div className={styles.register}><Link href='/login'>Already have an account?</Link></div>
+            <div className={styles.register}><Link href='/login'><a>Already have an account?</a></Link></div>
           </div>
         </div>
       </section>

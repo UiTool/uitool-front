@@ -39,7 +39,7 @@ const Forgot: NextPage = () => {
           </div>
           <div className={styles.pass_alternate}>
             <div className={styles.forgot}>
-              <Link href='/login'>Cancel</Link>
+              <Link href='/login'><a>Cancel</a></Link>
             </div>
           </div>
         </div>
