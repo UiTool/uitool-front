@@ -9,7 +9,7 @@ import styles from '../styles/Forgot.module.scss'
 
 const Forgot: NextPage = () => {
   const [email, setEmail] = useState('');
-
+  console.log(process.env.BACKEND_URL)
   const handleSubmit = async () => {
 
     try {
