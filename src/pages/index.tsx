@@ -1,9 +1,7 @@
-import Image from 'next/image'
 import type { NextPage } from 'next'
 import { Header } from '../components/header'
 import { Footer } from '../components/footer'
-import dashboard_button from '../public/dashboard_button.svg'
-import logout_button from '../public/logout_button.svg'
+
 
 import styles from '../styles/Home.module.scss'
 
