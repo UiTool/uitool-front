@@ -2,9 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  env: {
-    BACKEND_URL
-  }
+  // env: {
+  //   BACKEND_URL
+  // }
 }
 
 module.exports = nextConfig
