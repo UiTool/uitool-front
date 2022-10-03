@@ -3,7 +3,7 @@ import styles from './styles.module.scss'
 
 import logo from '../../public/logo.svg'
 
-export function Footer() {
+export const Footer: React.FC = () => {
   return (
     <>
     <header className={styles.footerContainer}>

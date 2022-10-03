@@ -9,9 +9,9 @@ import styles from '../styles/Forgot.module.scss'
 
 const Forgot: NextPage = () => {
   const [email, setEmail] = useState('');
-  console.log(process.env.BACKEND_URL)
-  const handleSubmit = async () => {
+  
 
+  const handleSubmit = async () => {
     try {
       await api.post('account/forget', {
         email,

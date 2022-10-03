@@ -1,42 +1,114 @@
-.container {
-  .avatarButton {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
+.menuButton {
+  height: 3rem;
+  border-radius: 3rem;
+  background: var(--gray-500);
+  border: 0;
 
-    border: none;
-    
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+
+  svg {
+    width: 35px;
+    height: 35px;
   }
 
-  &:hover .content {
-    display: block;
+  svg:first-child {
+    margin-right: 1rem;
+  }
+
+  svg.closeIcon {
+    margin-left: 1rem;
+  }
+
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.8);
   }
 }
 
-.content{
-  display: none;
+.dropdownMenu {
+  display: flex;
+  flex-direction: column;
+  background-color: #a8784f;
+  border: 50px;
+  transition: background-color 0.5s;
 
-  button {
-    background: #A66226;
-    height: 3rem;
-    width: 14rem;
-    border-radius: 0.8rem;
-    border: 0;
-    padding: 0 1.5rem;
+  a {
+    display: flex;
+    align-items: center;
 
-    color: white;
-    font-weight: bold;
-    text-align: left;
-
-    svg {
-      width: 20px;
-      height: 20px;
+    svg:first-child {
+      margin-right: 1rem;
     }
+
+    padding: 1rem;
+    color: white;
+    font-weight: 500;
   }
 
-  button:first-child {
+  a:hover {
+    background-color: #A66226;
+  }
+
+  &+a {
     margin-bottom: 1rem;
   }
+}
 
+
+.buttons {
+  display: flex;
+
+  button {
+    height: 2.5rem;
+    width: 7.375rem;
+    color: white;
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+
+    &+button {
+      margin-left: 1rem;
+    }
+
+  }
+
+  .loginButton {
+    color: white;
+    background-color: Transparent;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    svg:first-child {
+      margin-right: 1rem;
+    }
+
+  }
+
+  .signupButton {
+    background-color: Transparent;
+    border: 2px solid #fff;
+    border-radius: 8px;
+
+    transition: border-color background-color 0.2s;
+
+    &:hover {
+      border-color: #A66226;
+      background-color: #A66226;
+    }
+  }
 }
