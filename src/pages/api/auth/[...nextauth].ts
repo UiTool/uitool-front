@@ -60,7 +60,7 @@ export const authOptions = {
   callbacks: {
     async signIn({user, account, profile} : any) {
       if (account.provider === "google") {
-        const res = await api.post('account/login', {email: 'john@email.com', password: '123'})
+        const res = await api.post('account/social', {email: profile.email, name: profile.name})
         const { data } = res;
         user.token = data.token;
         return true;

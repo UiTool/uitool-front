@@ -1,0 +1,29 @@
+.avatarContainer {
+  position: fixed;
+  width: max-content;
+  z-index: 999;
+  display: flex;
+  flex-direction: row;
+  //top: 15%;
+  //left: 1rem;
+  object-fit: cover;
+
+  & > p {
+    padding: 8px 10px;
+    border-radius: 7px;
+    font-size: 11px;
+    border-top-left-radius: 0px;
+    background-color: lightgray;
+    margin-top: 40px;
+    margin-left: 5px;
+    cursor: pointer;
+    display: none;
+  }
+
+  .avatarImg {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+  }
+}

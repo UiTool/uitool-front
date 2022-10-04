@@ -6,7 +6,7 @@ import google_button from "../public/google_button.svg";
 import face_button from "../public/face_button.svg";
 import Link from "next/link";
 import { useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 const Login: NextPage = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ const Login: NextPage = () => {
 
       <section className={styles.container}>
         <div className={styles.buttons}>
-          <a onClick={() => signIn("google")}>
+          <a onClick={() => signIn("google" , {callbackUrl: "/"})}>
             <Image src={google_button} alt="Login with google" />
           </a>
           <a href="#">

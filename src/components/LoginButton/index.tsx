@@ -41,7 +41,7 @@ export const LoginMenu: React.FC = () => {
             </a>
           </Link>
           <Link href="/login">
-            <a onClick={() => signOut()}>
+            <a onClick={() => signOut({callbackUrl: "/login"})}>
               <RiLogoutCircleRFill />
               Logout
             </a>

@@ -213,3 +213,34 @@
 .main {
   display: flex;
 }
+
+.avatarContainer {
+  position: absolute;
+  width: max-content;
+  z-index: 999;
+  display: flex;
+  flex-direction: row;
+  top: 50%;
+  left: calc(50% + 5px);
+  transform: translateY(-50%);
+  object-fit: cover;
+
+  & > p {
+    padding: 8px 10px;
+    border-radius: 7px;
+    font-size: 11px;
+    border-top-left-radius: 0px;
+    background-color: lightgray;
+    margin-top: 40px;
+    margin-left: 5px;
+    cursor: pointer;
+    display: none;
+  }
+}
+
+.avatarImg {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
