@@ -21,7 +21,7 @@ const Login: NextPage = () => {
 
       <section className={styles.container}>
         <div className={styles.buttons}>
-          <a href="#">
+          <a onClick={() => signIn("google")}>
             <Image src={google_button} alt="Login with google" />
           </a>
           <a href="#">

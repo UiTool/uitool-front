@@ -1,15 +1,17 @@
 import autoAnimate from "@formkit/auto-animate";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import Router from "next/router";
 import { useState, useRef, useEffect } from "react";
 
 import { BsPersonCircle, BsPersonFill } from "react-icons/bs";
-import {MdSpaceDashboard } from "react-icons/md";
-import { RiLogoutCircleRFill } from "react-icons/ri"
+import { MdSpaceDashboard } from "react-icons/md";
+import { RiLogoutCircleRFill } from "react-icons/ri";
 
 import styles from "./styles.module.scss";
 
 export const LoginMenu: React.FC = () => {
-  const session = true;
+  const { data: session } = useSession();
 
   const [show, setShow] = useState(false);
   const parent = useRef(null);
@@ -20,6 +22,10 @@ export const LoginMenu: React.FC = () => {
 
   const reveal = () => setShow(!show);
 
+  const handleLogin = (page: string) => {
+    Router.push(page)
+  }
+
   return session ? (
     <div ref={parent}>
       <div onClick={reveal} className={styles.menuButton}>
@@ -28,18 +34,28 @@ export const LoginMenu: React.FC = () => {
       </div>
       {show && (
         <nav className={styles.dropdownMenu}>
-          <Link href="/dashboard"><a><MdSpaceDashboard/>Dashboard</a></Link>
-          <Link href="/login"><a><RiLogoutCircleRFill/>Logout</a></Link>
+          <Link href="/dashboard">
+            <a>
+              <MdSpaceDashboard />
+              Dashboard
+            </a>
+          </Link>
+          <Link href="/login">
+            <a onClick={() => signOut()}>
+              <RiLogoutCircleRFill />
+              Logout
+            </a>
+          </Link>
         </nav>
       )}
     </div>
   ) : (
     <div className={styles.buttons}>
-      <button type="button" className={styles.loginButton}>
+      <button onClick={() => Router.push("/login")}  type="button" className={styles.loginButton}>
         <BsPersonFill />
         Login
       </button>
-      <button type="button" className={styles.signupButton}>
+      <button onClick={() => Router.push("/signup")} type="button" className={styles.signupButton}>
         Sign Up
       </button>
     </div>

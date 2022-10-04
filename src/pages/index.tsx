@@ -4,16 +4,16 @@ import { Footer } from '../components/footer'
 
 
 import styles from '../styles/Home.module.scss'
+import { useSession } from 'next-auth/react'
 
 const Home: NextPage = () => {
+  const {data: session} = useSession()
+  console.log(session)
+  
   return (
     <>
       <Header />
-      <div className={styles.outerContainer}>
-        {/* <div className={styles.buttons}>
-          <Image src={dashboard_button} alt="Logo UI Tools" />
-          <Image src={logout_button} alt="Login" />
-        </div> */}
+      <div className={styles.outerContainer}>     
         <div className={styles.videoBox}>
           <span>VÍDEO</span>
         </div>

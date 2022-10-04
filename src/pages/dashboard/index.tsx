@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { Header } from '../../components/header';
 import { useState } from 'react';
+import { api } from '../../services/api'
 
 import styles from '../../styles/Dashboard.module.scss'
 import Menu from './_menu';
@@ -47,6 +48,7 @@ const MOCKUP_CARD = {
 
 const Dashboard: NextPage = () => {
   const [modalOpen, setModalOpen] = useState(false)
+
   return (
     <>
       <Header />

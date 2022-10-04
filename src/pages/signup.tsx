@@ -3,11 +3,34 @@ import Image from 'next/image'
 import { Header } from '../components/header'
 import google_button from '../public/google_button.svg'
 import face_button from '../public/face_button.svg'
+import { api } from '../services/api'
 
 import styles from '../styles/Signup.module.scss'
 import Link from 'next/link'
+import { useState } from 'react'
+import Router from 'next/router'
 
 const Signup: NextPage = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+
+  const handleSubmit = async () => {
+    try {
+      await api.post('account/create', {
+        name,
+        email,
+        password
+      });
+      
+      Router.push('/login')
+      
+    } catch {
+      Router.push('/login')
+    }
+  }
+
   return (
     <>
      <Header /> 
@@ -31,12 +54,12 @@ const Signup: NextPage = () => {
         <div className={styles.sign_in}>
           <h2 className={styles.subtitle}>Sign in</h2>
           <form action="">
-            <input className={styles.login_data} placeholder="E-mail" type="email" id="email"/>
-            <input className={styles.login_data} placeholder="Name" type="text" id="name"/>
-            <input className={styles.login_data} placeholder="Password" type="password" id="password"/>
-            <input className={styles.login_data} placeholder="Confirm Password" type="password" id="password"/>
+            <input className={styles.login_data} onChange={(e) => setName(e.target.value)} placeholder="Name" type="text" id="name"/>
+            <input className={styles.login_data} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail" type="email" id="email"/>
+            <input className={styles.login_data} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+            <input className={styles.login_data} onChange={(e) => setPassword(e.target.value)}placeholder="Confirm Password" type="password" id="password"/>
             <div className={styles.remember_sign_in}>
-              <button>Sign up</button>
+              <button onClick={handleSubmit}>Sign up</button>
             </div>
           </form>
           <div className={styles.pass_alternate}>

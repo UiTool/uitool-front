@@ -18,7 +18,6 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
-        console.log('entrou')
         const payload = {
           email: credentials?.email,
           password: credentials?.password,
@@ -55,7 +54,20 @@ export const authOptions = {
   pages: {
     signIn: '/login'
   },
+  jwt: {
+    secret: "ceaRbREYIOAqKg0YcDn8G5EoGcOXmxGxKaWav3qVNP8huxw5LkniLgao7FeScu-999m3mPHISyPsrPcLLJbu8A"
+  },
   callbacks: {
+    async signIn({user, account, profile} : any) {
+      if (account.provider === "google") {
+        const res = await api.post('account/login', {email: 'john@email.com', password: '123'})
+        const { data } = res;
+        user.token = data.token;
+        return true;
+      }
+
+      return true;
+    },
     async jwt({ token, user, account } : any) {
       if (account && user) {
         return {
@@ -71,37 +83,6 @@ export const authOptions = {
       return session;
     },
   },
- 
-    /*  pages: {
-    async signIn({ user, account, profile, email }: any) {
-      console.log(user)
-      const payLoad = {
-        email: email, 
-        token: user.token
-      }
-      switch (account.provider.toLowerCase()) {
-        case "google":
-          user.token = await fetch("http://localhost:4003/login-google", {
-            method: 'POST',
-            body: JSON.stringify(payLoad),
-            headers: { "Content-Type": "application/json" }
-          })
-          return true;
-
-        case "facebook":
-          user.token = await fetch("http://localhost:4003/login-facebook", {
-            method: 'POST',
-            body: JSON.stringify(payLoad),
-            headers: { "Content-Type": "application/json" }
-          })
-          return true;
-          
-          default:
-            break;
-          }
-          return false;
-        },
-      }, */
 }
 
 export default NextAuth(authOptions)
