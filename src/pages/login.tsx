@@ -27,7 +27,7 @@ const Login: NextPage = () => {
           <a href="#">
             <Image src={face_button} alt="Login with facebook" />
           </a>
-        </div>
+        </div> 
 
         <div className={styles.separation}>
           <div className={styles.bar}></div>
