@@ -15,7 +15,9 @@
   margin-bottom: 2.5rem;
 }
 .container{
-  @include define_size(67.5rem, 32.25rem);
+  //@include define_size(67.5rem, 32.25rem);
+  max-width: 67.5rem;
+  //max-height: auto;
   margin: 0 auto;
   border-radius: 0.5rem;
   border: solid 0.0625rem black;
@@ -89,5 +91,52 @@
   justify-content: space-around;
   .register{
     color: #a66226;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    margin: 1rem;
+  }
+
+  .buttons {
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 30rem;
+    height: auto;
+    margin: auto;
+    margin-bottom: 1rem;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 5rem;
+  }
+
+  .buttons {
+   gap: 1rem;
+  }
+
+  .sign_in {
+    order: -1;
+    margin-top: 1rem;
+  }
+
+  .separation {
+    display: none;
+
+    .bar {
+      @include define_size(24rem, 1px);
+      margin: 2.5rem 0 2.5rem 0.4375rem;
+      background-color: red;
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .container {
+    margin: 1rem;
   }
 }

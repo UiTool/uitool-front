@@ -21,13 +21,13 @@ const Login: NextPage = () => {
 
       <section className={styles.container}>
         <div className={styles.buttons}>
-          <a onClick={() => signIn("google" , {callbackUrl: "/"})}>
+          <a onClick={() => signIn("google", { callbackUrl: "/" })}>
             <Image src={google_button} alt="Login with google" />
           </a>
           <a href="#">
             <Image src={face_button} alt="Login with facebook" />
           </a>
-        </div> 
+        </div>
 
         <div className={styles.separation}>
           <div className={styles.bar}></div>
@@ -36,7 +36,7 @@ const Login: NextPage = () => {
         </div>
 
         <div className={styles.sign_in}>
-          <h2 className={styles.subtitle}>Sign in</h2>
+          <h2 className={styles.subtitle}>Log in</h2>
 
           <input
             className={styles.login_data}
@@ -51,12 +51,17 @@ const Login: NextPage = () => {
             type="password"
           />
           <div className={styles.remember_sign_in}>
-            <input className={styles.check} type="checkbox" id="check" />
-            Remember me
+            <input
+              className={styles.check}
+              type="checkbox"
+              placeholder="Remember me"
+              id="check"
+            />
+            <span>Remember me</span>
             <button
               onClick={() =>
                 signIn("credentials", {
-                  callbackUrl: '/dashboard',
+                  callbackUrl: "/",
                   email,
                   password,
                 })

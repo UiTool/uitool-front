@@ -1,22 +1,26 @@
-@mixin define_size($width, $height){
+@mixin define_size($width, $height) {
   width: $width;
   height: $height;
 }
+
 @mixin btn-format($width: 20.625rem) {
   border-radius: 0.5rem;
   @include define_size($width, 3.75em);
 }
 
-.title{
+.title {
   font-weight: normal;
   font-size: 2.5rem;
   text-align: center;
   margin-top: 4.4375rem;
   margin-bottom: 2.5rem;
 }
-.container{
-  @include define_size(67.5rem, 32.25rem);
-  margin: 0 auto;
+
+.container {
+  //@include define_size(67.5rem, 32.25rem);
+  max-width: 67.5rem;
+  max-height: 32.25rem;
+  margin: auto;
   border-radius: 0.5rem;
   border: solid 0.0625rem black;
   box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
@@ -29,35 +33,38 @@
   gap: 3.125rem;
   margin-top: 10.6875rem;
   margin-left: 5.625rem;
-  
+
   a {
     transition: filter 0.2s;
 
-    &:hover{
+    &:hover {
       filter: brightness(0.9);
     }
   }
 }
 
-.separation{
+.separation {
   margin-left: auto;
   width: 1.3125rem;
-  .bar{
+
+  .bar {
     @include define_size(0.0625rem, 10.125rem);
     margin: 2.5rem 0 2.5rem 0.4375rem;
     background-color: black;
   }
 }
 
-.sign_in{
+.sign_in {
   @include define_size(20.625rem, 20.875rem);
   margin: 5.9375rem auto 0;
-  .subtitle{
+
+  .subtitle {
     text-align: center;
     font-size: 1.5rem;
     margin-bottom: 0.625rem;
   }
-  .login_data{
+
+  .login_data {
     @include define_size(20.625rem, 3.75rem);
     margin-top: 1.25rem;
     padding-left: 1.875rem;
@@ -65,9 +72,11 @@
     border: 0.0625rem SOLID BLACK;
   }
 }
-.remember_sign_in{
+
+.remember_sign_in {
   margin-top: 1.875rem;
-  button{
+
+  button {
     @include btn-format(10rem);
     color: white;
     background-color: #a66226;
@@ -77,23 +86,71 @@
 
     transition: filter 0.2s;
 
-    &:hover{
+    &:hover {
       filter: brightness(0.9);
     }
   }
-  input{
+
+  input {
     margin: 0 1rem;
   }
 }
-.pass_alternate{
+
+.pass_alternate {
   color: #898989;
   display: flex;
   margin-top: 1.875rem;
   justify-content: space-around;
-  .register{
+
+  .register {
     color: #a66226;
     padding-right: 2.5rem;
     border-right: 0.0625rem solid #898989;
-}
+  }
 }
 
+@media (max-width: 1024px) {
+  .container {
+    margin: 1rem;
+  }
+
+  .buttons {
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 30rem;
+    margin: auto;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 5rem;
+  }
+
+  .buttons {
+    margin: auto;
+    gap: 0.25rem;
+  }
+
+  .sign_in {
+    order: -1;
+    margin-top: 1rem;
+  }
+
+  .separation {
+    display: none;
+
+    .bar {
+      @include define_size(24rem, 1px);
+      margin: 2.5rem 0 2.5rem 0.4375rem;
+      background-color: red;
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .container {
+    margin: 1rem;
+  }
+}

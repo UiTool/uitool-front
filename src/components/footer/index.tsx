@@ -6,7 +6,7 @@ import logo from '../../public/logo.svg'
 export const Footer: React.FC = () => {
   return (
     <>
-    <header className={styles.footerContainer}>
+    <footer className={styles.footerContainer}>
       <span className={styles.logo}>
         <Image src={logo} alt="Logo UI Tools" />
       </span>
@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
         <p>Telefone: (99) 12345-6789</p>
         <p>Endereço: Rdv. João Leme dos Santos, Km 110 | <br/>Bairro Itinga Sorocaba – SP – Brazil</p>
       </div>
-    </header>
+    </footer>
     </>
   )
 }

@@ -22,15 +22,11 @@ export const LoginMenu: React.FC = () => {
 
   const reveal = () => setShow(!show);
 
-  const handleLogin = (page: string) => {
-    Router.push(page)
-  }
-
   return session ? (
     <div ref={parent}>
       <div onClick={reveal} className={styles.menuButton}>
         <BsPersonCircle />
-        John Doe
+        {session.user?.name}
       </div>
       {show && (
         <nav className={styles.dropdownMenu}>

@@ -29,10 +29,12 @@
 
   &:hover {
     filter: brightness(0.8);
+
   }
 }
 
 .dropdownMenu {
+  position: absolute;
   display: flex;
   flex-direction: column;
   background-color: #a8784f;
@@ -74,7 +76,7 @@
     transition: background-color 0.2s;
 
     &+button {
-      margin-left: 1rem;
+      margin-left: 0.2rem;
     }
 
   }
@@ -110,5 +112,11 @@
       border-color: #A66226;
       background-color: #A66226;
     }
+  }
+}
+
+@media (max-width: 425px){
+  .loginButton {
+    margin-right: -1rem;
   }
 }
