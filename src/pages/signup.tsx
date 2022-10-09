@@ -9,27 +9,39 @@ import styles from "../styles/Signup.module.scss";
 import Link from "next/link";
 import { useState } from "react";
 import Router from "next/router";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const registerFormSchema = z
+  .object({
+    name: z.string().min(1, { message: "Can't be empty" }),
+    email: z.string().email({ message: "Invalid email address" }),
+    password: z
+      .string()
+      .min(6, { message: "Must be 6 or more characters long" }),
+    confirmPassword: z.string()
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirm"],
+    message: "Passwords don't match",
+  });
+
+type RegisterFormSchema = z.infer<typeof registerFormSchema>;
 
 const Signup: NextPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormSchema>({
+    resolver: zodResolver(registerFormSchema),
+  });
 
-  const handleSubmit = async () => {
-    if (name != "" && email != "" && password != "") {
-      try {
-        await api.post("account/create", {
-          name,
-          email,
-          password,
-        });
-
-        Router.push("/login");
-      } catch {
-        Router.push("/login");
-      }
-    }
-  };
+  async function handleRegister(data: RegisterFormSchema): Promise<void> {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log(data);
+  }
 
   return (
     <>
@@ -56,38 +68,47 @@ const Signup: NextPage = () => {
 
         <div className={styles.sign_in}>
           <h2 className={styles.subtitle}>Sign in</h2>
-          <form action="">
+          <form onSubmit={handleSubmit(handleRegister)}>
             <input
               className={styles.login_data}
-              onChange={(e) => setName(e.target.value)}
               placeholder="Name"
               type="text"
               id="name"
+              required
+              {...register("name")}
             />
             <input
               className={styles.login_data}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="E-mail"
-              pattern=".+@globex\.com"
               type="email"
               id="email"
               required
+              {...register("email")}
             />
             <input
               className={styles.login_data}
-              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               type="password"
+              required
+              {...register("password")}
             />
+            {errors.password && (
+              <p className={styles.errorMessage}>{errors.password.message}</p>
+            )}
             <input
               className={styles.login_data}
-              onChange={(e) => setPassword(e.target.value)}
               placeholder="Confirm Password"
               type="password"
-              id="password"
-            />
+              id="Confirmpassword"
+              required
+              {...register("confirmPassword")}
+            /> {errors.confirm && (
+              <p className={styles.errorMessage}>{errors.confirm.message}</p>
+            )}
             <div className={styles.remember_sign_in}>
-              <button onClick={handleSubmit}>Sign up</button>
+              <button type="submit" disabled={isSubmitting}>
+                Sign up
+              </button>
             </div>
           </form>
           <div className={styles.pass_alternate}>
