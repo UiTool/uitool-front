@@ -10,24 +10,23 @@ import Link from "next/link";
 import { useState } from "react";
 import Router from "next/router";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as y from "yup";
+import { yupResolver} from '@hookform/resolvers/yup'
 
-const registerFormSchema = z
-  .object({
-    name: z.string().min(1, { message: "Can't be empty" }),
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z
-      .string()
-      .min(6, { message: "Must be 6 or more characters long" }),
-    confirmPassword: z.string()
+type RegisterFormSchema = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const registerFormSchema = y
+  .object().shape({
+    name: y.string().min(1, "Can't be empty"),
+    email: y.string().email("Invalid email address"),
+    password: y.string().min(6,"Must be 6 or more characters long"),
+    confirmPassword: y.string().oneOf([y.ref("password"), null], "Password must be match")  
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirm"],
-    message: "Passwords don't match",
-  });
-
-type RegisterFormSchema = z.infer<typeof registerFormSchema>;
 
 const Signup: NextPage = () => {
   const {
@@ -35,12 +34,13 @@ const Signup: NextPage = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormSchema>({
-    resolver: zodResolver(registerFormSchema),
+    resolver: yupResolver(registerFormSchema), 
+    
   });
 
   async function handleRegister(data: RegisterFormSchema): Promise<void> {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
+    console.log(data)
   }
 
   return (
@@ -102,8 +102,8 @@ const Signup: NextPage = () => {
               id="Confirmpassword"
               required
               {...register("confirmPassword")}
-            /> {errors.confirm && (
-              <p className={styles.errorMessage}>{errors.confirm.message}</p>
+            /> {errors.confirmPassword && (
+              <p className={styles.errorMessage}>{errors.confirmPassword.message}</p>
             )}
             <div className={styles.remember_sign_in}>
               <button type="submit" disabled={isSubmitting}>
