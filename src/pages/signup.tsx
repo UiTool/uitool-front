@@ -39,8 +39,18 @@ const Signup: NextPage = () => {
   });
 
   async function handleRegister(data: RegisterFormSchema): Promise<void> {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data)
+    const{ name, email, password} = data;
+    
+    try {
+      await api.post("account/create", {
+        name,
+        email,
+        password
+      })
+    }
+    finally{
+      Router.push("/login")
+    }
   }
 
   return (

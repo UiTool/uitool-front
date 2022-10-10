@@ -109,6 +109,13 @@
   }
 }
 
+.errorMessage {
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 1rem;
+}
+
+
 @media (max-width: 1024px) {
   .container {
     margin: 1rem;
