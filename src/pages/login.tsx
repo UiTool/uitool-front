@@ -37,17 +37,15 @@ const Login: NextPage = () => {
 
   async function handleRegister(data: LoginFormSchema): Promise<void> {
     const {email, password} = data
-
-    try {
-      signIn("credentials", {
+    
+    await signIn("credentials", {
         callbackUrl: "/",
         email,
         password,
+      }).catch(() => {
+        Router.push('/login')
       })
-      
-    }catch {
-      Router.push("/login")
-    }
+  
   }
 
   return (

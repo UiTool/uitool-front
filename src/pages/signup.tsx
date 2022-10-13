@@ -7,7 +7,6 @@ import { api } from "../services/api";
 
 import styles from "../styles/Signup.module.scss";
 import Link from "next/link";
-import { useState } from "react";
 import Router from "next/router";
 import { useForm } from "react-hook-form";
 import * as y from "yup";
@@ -46,7 +45,9 @@ const Signup: NextPage = () => {
         name,
         email,
         password
-      })
+      }).then(() => {
+        Router.push('/login')
+      }).catch(() => alert('Could not register'))
     }
     finally{
       Router.push("/login")
