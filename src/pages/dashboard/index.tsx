@@ -190,9 +190,9 @@ const Dashboard: NextPage = () => {
                   />
                 </div>
                 <Modal
-                  title={tools[toolIndex].name}
-                  image={tools[toolIndex].image}
-                  description={tools[toolIndex].description}
+                  title={tools[toolIndex]?.name}
+                  image={tools[toolIndex]?.image}
+                  description={tools[toolIndex]?.description}
                   isOpen={modalOpen}
                   onClose={() => setModalOpen(false)}
                 />
