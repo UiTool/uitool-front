@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { Header } from "../components/header";
-import { SideBar } from "../components/sideBar";
+import { HeaderAdmin } from "../../../components/admin/headerAdmin";
+import { SideBarAdmin } from "../../../components/admin/sideBarAdmin";
 import { useForm } from "react-hook-form";
 import styles from "../styles.module.scss";
 import create from "./styles.module.scss";
@@ -63,9 +63,9 @@ const CreateTools: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
+        <SideBarAdmin />
         <div className={styles.main}>
           <div className={create.header}>
             <h2>Create Tool</h2>

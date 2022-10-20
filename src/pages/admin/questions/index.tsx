@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import { Header } from "../components/header";
-import { SideBar } from "../components/sideBar";
+import { HeaderAdmin } from "../../../components/admin/headerAdmin";
+import { SideBarAdmin } from "../../../components/admin/sideBarAdmin";
 import { useQuery } from "react-query";
 
 import { MdAddBox, MdOutlineDelete } from "react-icons/md";
@@ -55,9 +55,9 @@ const Questions: NextPage = () => {
 
   return !isLoading ?  (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
+        <SideBarAdmin />
         <div className={styles.main}>
           <div className={questions.questions}>
             <h2>Questions</h2>
@@ -113,9 +113,9 @@ const Questions: NextPage = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
+        <SideBarAdmin />
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}className={styles.main}>
           <div className={styles.lds_roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>

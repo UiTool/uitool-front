@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import { Header } from "../components/header";
-import { SideBar } from "../components/sideBar";
+import { HeaderAdmin } from "../../../components/admin/headerAdmin";
+import { SideBarAdmin } from "../../../components/admin/sideBarAdmin";
 
 import { MdAddBox, MdOutlineDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
@@ -57,9 +57,9 @@ const Tools: NextPage = () => {
 
   return !isLoading ? (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
+        <SideBarAdmin />
         <div className={styles.main}>
           <div className={tools.tools}>
             <h2>Tools</h2>
@@ -117,9 +117,9 @@ const Tools: NextPage = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
+        <SideBarAdmin />
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}className={styles.main}>
           <div className={styles.lds_roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>

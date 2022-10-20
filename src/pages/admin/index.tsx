@@ -6,8 +6,8 @@ import Link from "next/link";
 import { BsQuestionSquare } from "react-icons/bs";
 import { VscTools } from "react-icons/vsc";
 
-import { Header } from "./components/header";
-import { SideBar } from "./components/sideBar";
+import { HeaderAdmin } from "../../components/admin/headerAdmin";
+import { SideBarAdmin } from "../../components/admin/sideBarAdmin";
 
 import styles from "./styles.module.scss";
 
@@ -15,9 +15,9 @@ const Dashboard: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
+        <SideBarAdmin />
         <div className={styles.cards}>
           <Link href="/admin/tools">
             <a className={styles.option}>

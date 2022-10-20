@@ -1,7 +1,7 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
-import { Header } from "../../components/header";
-import { SideBar } from "../../components/sideBar";
+import { HeaderAdmin } from "../../../../components/admin/headerAdmin";
+import { SideBarAdmin } from "../../../../components/admin/sideBarAdmin";
 import { useForm } from "react-hook-form";
 import styles from "../../styles.module.scss";
 import create from "../styles.module.scss";
@@ -20,6 +20,12 @@ type questionType = {
   answers: Answers[];
 }
 
+type PropsQuestion = {
+  question: questionType;
+  isLoading: boolean;
+  id: string;
+}
+
 type EditQuestionFormSchema = {
   question: string;
   answer1: string;
@@ -32,25 +38,19 @@ type EditQuestionFormSchema = {
   tags4: string;
 };
 
-const EditQuestion: NextPage = () => {
-  const { id } = Router.query;
-
+function EditQuestion({ question, isLoading, id }: PropsQuestion) {
+  // const { id } = Router.query;
+  // const {
+  //   data: question,
+  //   isLoading,
+  //   error,
+  // } = useQuery<questionType>(`question:${id}`, async () => {
+  //   const response = await api.get(`questions/${id}`);
+  //   const { data } = response
+  //   return data;
+  // });
   const {
-    data: question,
-    isLoading,
-    error,
-  } = useQuery<questionType>(`question:${id}`, async () => {
-    const response = await api.get(`questions/${id}`);
-    const { data } = response
-    return data;
-    
-  });
-
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
+    register, handleSubmit, formState: { errors, isSubmitting },
   } = useForm<EditQuestionFormSchema>({});
 
   async function handleEditQuestion(data: EditQuestionFormSchema) {
@@ -87,14 +87,14 @@ const EditQuestion: NextPage = () => {
       answers: answers,
     });
 
-    Router.push('/admin/questions')
+    Router.push('/admin/questions');
   }
 
   return !isLoading ? (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
+        <SideBarAdmin />
         <div className={styles.main}>
           <div className={create.header}>
             <h2>Edit Question</h2>
@@ -111,8 +111,7 @@ const EditQuestion: NextPage = () => {
                   type="text"
                   defaultValue={question?.question}
                   required
-                  {...register("question")}
-                />
+                  {...register("question")} />
               </div>
               <div className={create.answers}>
                 <div className={create.answer}>
@@ -121,8 +120,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[0].answer}
                     required
-                    {...register("answer1")}
-                  />
+                    {...register("answer1")} />
                 </div>
                 <div className={create.tags}>
                   <label>Tags</label>
@@ -130,8 +128,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[0].tags.toString()}
                     required
-                    {...register("tags1")}
-                  />
+                    {...register("tags1")} />
                 </div>
               </div>
               <div className={create.answers}>
@@ -141,8 +138,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[1].answer}
                     required
-                    {...register("answer2")}
-                  />
+                    {...register("answer2")} />
                 </div>
                 <div className={create.tags}>
                   <label>Tags</label>
@@ -150,8 +146,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[1].tags.toString()}
                     required
-                    {...register("tags2")}
-                  />
+                    {...register("tags2")} />
                 </div>
               </div>
               <div className={create.answers}>
@@ -161,8 +156,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[2].answer}
                     required
-                    {...register("answer3")}
-                  />
+                    {...register("answer3")} />
                 </div>
                 <div className={create.tags}>
                   <label>Tags</label>
@@ -170,8 +164,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[2].tags.toString()}
                     required
-                    {...register("tags3")}
-                  />
+                    {...register("tags3")} />
                 </div>
               </div>
               <div className={create.answers}>
@@ -181,8 +174,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[3].answer}
                     required
-                    {...register("answer4")}
-                  />
+                    {...register("answer4")} />
                 </div>
                 <div className={create.tags}>
                   <label>Tags</label>
@@ -190,8 +182,7 @@ const EditQuestion: NextPage = () => {
                     type="text"
                     defaultValue={question?.answers[3].tags.toString()}
                     required
-                    {...register("tags4")}
-                  />
+                    {...register("tags4")} />
                 </div>
               </div>
               <div className={create.buttonsForms}>
@@ -213,15 +204,53 @@ const EditQuestion: NextPage = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <HeaderAdmin />
       <div className={styles.content}>
-        <SideBar />
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}className={styles.main}>
+        <SideBarAdmin />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className={styles.main}>
           <div className={styles.lds_roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default EditQuestion;
+
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  //const session = await getSession({ req })
+  const id = context.params?.id;
+  const question = '';
+  const isLoading = '';
+
+  // if (!session?.activeSubscription) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     }
+  //   }
+  // }
+
+
+  // const {
+  //   data: question,
+  //   isLoading,
+  //   error,
+  // } = useQuery<questionType>(`question:${id}`, async () => {
+  //   const response = await api.get(`questions/${id}`);
+  //   const { data } = response
+  //   return data;
+    
+  // });
+
+  return {
+    props: {
+      question,
+      isLoading,
+      id,
+    }
+  }
+}
