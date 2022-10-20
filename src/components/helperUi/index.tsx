@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import styles from "../../styles/helperUi.module.scss";
+import styles from "../../styles/helperui.module.scss";
 import stylesDashboard from "./styles.module.scss";
 import { useRouter } from "next/router";
 
