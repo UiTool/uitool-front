@@ -10,7 +10,11 @@ import { RiLogoutCircleRFill } from "react-icons/ri";
 
 import styles from "./styles.module.scss";
 
-export const LoginMenu: React.FC = () => {
+type Props  = {
+  color?: string
+}
+
+export const LoginMenu: React.FC<Props> = ({color="white"}) => {
   const { data: session } = useSession();
 
   const [show, setShow] = useState(false);
@@ -24,7 +28,7 @@ export const LoginMenu: React.FC = () => {
 
   return session ? (
     <div ref={parent}>
-      <div onClick={reveal} className={styles.menuButton}>
+      <div style={{color: color}}onClick={reveal} className={styles.menuButton}>
         <BsPersonCircle />
         {session.user?.name}
       </div>

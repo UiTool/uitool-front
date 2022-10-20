@@ -1,9 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import styles from './styles.module.scss'
+import styles from "../../styles/helperUi.module.scss";
+import stylesDashboard from "./styles.module.scss";
+import { useRouter } from "next/router";
+
+import logoHelperUi from "../../public/helperui.jpg";
+import robot from "../../public/robot.png";
+import { Modal } from "./modal";
 
 export const HelperUi: React.FC = () => {
+  const [openModal, setOpenModal] = useState(false);
+
+  const router = useRouter();
   const p_ref = useRef(null);
 
   useEffect(() => {
@@ -13,15 +22,25 @@ export const HelperUi: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.avatarContainer}>
-      <Image
-        className={styles.avatarImg}
-        src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-        alt="Avatar Helpe Ui"
-      />
-      <p ref={p_ref} id="label-avatar">
-        Olá! Você precisa de ajuda?
-      </p>
+    <div>
+      <div
+        className={
+          router.pathname != "/dashboard"
+            ? styles.avatarContainer
+            : stylesDashboard.avatarContainer
+        }
+        onClick={() => setOpenModal(true)}
+      >
+        <Image
+          className={styles.avatarImg}
+          src={robot}
+          alt="Logo Helper Ui"
+        />
+        <p ref={p_ref} id="label-avatar">
+          Olá! Você precisa de ajuda?
+        </p>
+      </div>
+      <Modal open={openModal} onClose={() => setOpenModal(false)} />
     </div>
   );
 };

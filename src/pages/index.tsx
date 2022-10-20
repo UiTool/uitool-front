@@ -5,6 +5,7 @@ import { Footer } from "../components/footer";
 import styles from "../styles/Home.module.scss";
 import { useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
+import { HelperUi } from "../components/helperUi";
 
 const Home: NextPage = () => {
   const p_ref = useRef(null);
@@ -18,15 +19,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Header />
-      <div className={styles.avatarContainer}>
-        <img
-          className={styles.avatarImg}
-          src="https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-        />
-        <p ref={p_ref} id="label-avatar">
-          Olá! Você precisa de ajuda?
-        </p>
-      </div>
+      <HelperUi />
       <div className={styles.outerContainer}>
         <div className={styles.videoBox}>
           <span>

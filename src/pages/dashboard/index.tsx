@@ -1,85 +1,208 @@
-import type { NextPage } from 'next'
-import { Header } from '../../components/header';
-import { useState } from 'react';
-import { api } from '../../services/api'
+import type { NextPage } from "next";
+import Image from "next/image";
 
-import styles from '../../styles/Dashboard.module.scss'
-import Menu from './_menu';
-import { useSession } from 'next-auth/react';
+import { Header } from "../../components/header";
+import { useState } from "react";
+import { api } from "../../services/api";
 
-interface ModalProps{
+import styles from "../../styles/Dashboard.module.scss";
+import Menu from "./_menu";
+import { useQuery } from "react-query";
+import { HelperUi } from "../../components/helperUi";
+
+interface ModalProps {
+  title: string;
+  image: string;
+  description: string;
   isOpen: boolean;
-  onClose(): void,
+  onClose(): void;
 }
-const Modal: React.FC<ModalProps> = ({isOpen, onClose}) => {
-   return (
-    <div className={`${styles.modal_container} ${isOpen ? styles.modal_open : ''}`}>
-      <p className={styles.modal_btnClose} onClick={() => onClose()}>Fechar</p>
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  title,
+  description,
+  image,
+}) => {
+  return (
+    <div
+      className={`${styles.modal_container} ${isOpen ? styles.modal_open : ""}`}
+    >
+      <p className={styles.modal_btnClose} onClick={() => onClose()}>
+        Fechar
+      </p>
       <div>
-        <h1>Title</h1>
-        <img src='https://media.istockphoto.com/vectors/background-minimal-waves-design-vector-id1298530515' alt='tools'/>
+        <h1>{title}</h1>
+        <img src={image} alt="tools" />
       </div>
-
       <h3>Description</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a ligula ipsum. Suspendisse vel nibh nec eros dapibus malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a ligula ipsum. Suspendisse vel nibh nec eros dapibus malesuada.</p>
+      <p>{description}</p>
     </div>
-  )
-}
+  );
+};
 
 interface CardProps {
-  title: string,
-  imgSrc: string,
-  onClick(): void,
+  title: string;
+  imgSrc: string;
+  onClick(): void;
 }
 
-const Card: React.FC<CardProps> = ({title, imgSrc, onClick}) => {
+const Card: React.FC<CardProps> = ({ title, imgSrc, onClick }) => {
   return (
     <div className={styles.card} onClick={onClick}>
       <img src={imgSrc} />
       <p>{title}</p>
     </div>
-  )
-}
+  );
+};
 
-const MOCKUP_CARD = {
-  title: 'exemplo',
-  imgSrc: 'https://media.istockphoto.com/vectors/background-minimal-waves-design-vector-id1298530515'
-}
+type toolsType = {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  link: string;
+  tags: string[];
+  categories: string[];
+};
 
 const Dashboard: NextPage = () => {
-  const [modalOpen, setModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false);
+  const [toolIndex,  setToolIndex] = useState(0);
+
+  const [tools, setTools] = useState<toolsType[]>();
+
+  const { data: toolsResearch } = useQuery<toolsType[]>(
+    "reserach",
+    async () => {
+      const response = await api.get("tools/category/research");
+      const { data } = response;
+
+      return data.map((tool: toolsType) => {
+        return {
+          id: tool.id,
+          name: tool.name,
+          description: tool.description,
+          image: tool.image,
+          link: tool.image,
+          tags: tool.tags,
+          categories: tool.categories,
+        };
+      });
+    }
+  );
+
+  const { data: toolsIdeation } = useQuery<toolsType[]>(
+    "ideation",
+    async () => {
+      const response = await api.get("tools/category/ideation");
+      const { data } = response;
+
+      return data.map((tool: toolsType) => {
+        return {
+          id: tool.id,
+          name: tool.name,
+          description: tool.description,
+          image: tool.image,
+          link: tool.image,
+          tags: tool.tags,
+          categories: tool.categories,
+        };
+      });
+    }
+  );
+
+  const { data: toolsPrototyping } = useQuery<toolsType[]>(
+    "prototyping",
+    async () => {
+      const response = await api.get("tools/category/prototyping");
+      const { data } = response;
+
+      return data.map((tool: toolsType) => {
+        return {
+          id: tool.id,
+          name: tool.name,
+          description: tool.description,
+          image: tool.image,
+          link: tool.image,
+          tags: tool.tags,
+          categories: tool.categories,
+        };
+      });
+    }
+  );
+
+  const { data: toolsEvaluation } = useQuery<toolsType[]>(
+    "evaluation",
+    async () => {
+      const response = await api.get("tools/category/evaluation");
+      const { data } = response;
+
+      return data.map((tool: toolsType) => {
+        return {
+          id: tool.id,
+          name: tool.name,
+          description: tool.description,
+          image: tool.image,
+          link: tool.image,
+          tags: tool.tags,
+          categories: tool.categories,
+        };
+      });
+    }
+  );
+  const handleResearch = async () => {
+    setTools(toolsResearch);
+  };
+  const handlePrototyping = async () => {
+    setTools(toolsPrototyping);
+  };
+  const handleIdeation = async () => {
+    setTools(toolsIdeation);
+  };
+  const handleEvaluation = async () => {
+    setTools(toolsEvaluation);
+  };
 
   return (
     <>
       <Header />
-      <main className={styles.main}>
-        <div>
-          <div className={styles.barLateral}></div>
-          <Menu />
+      <HelperUi/>
+      <div className={styles.outerContainer}>
+        <Menu
+          handleEvaluation={handleEvaluation}
+          handleIdeation={handleIdeation}
+          handlePrototyping={handlePrototyping}
+          handleResearch={handleResearch}
+        />
+        <div className={styles.container}>
+          {tools?.map((tool, index) => {
+            return (
+              <>
+                <div key={tool.id}>
+                  <Card
+                    title={tool.name}
+                    imgSrc={tool.image}
+                    onClick={() => {
+                      setModalOpen(true);
+                      setToolIndex(index);
+                    }}
+                  />
+                </div>
+                <Modal
+                  title={tools[toolIndex].name}
+                  image={tools[toolIndex].image}
+                  description={tools[toolIndex].description}
+                  isOpen={modalOpen}
+                  onClose={() => setModalOpen(false)}
+                />
+              </>
+            );
+          })}
         </div>
-        <section
-          className={styles.container}
-        // onClick={(e) => {
-        //   // setModalOpen(false);
-        // }}
-        >
-          {
-            [1, 2, 3, 4].map((v, index) => (
-              <Card
-                key={index}
-                title={MOCKUP_CARD.title}
-                imgSrc={MOCKUP_CARD.imgSrc}
-                onClick={() => {
-                  setModalOpen(true);
-                }}
-              />
-            ))
-          }
-          <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-        </section>
-      </main>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

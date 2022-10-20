@@ -2,6 +2,8 @@
   height: 5rem;
   border-bottom: 1px solid var(--gray-800);
   background: var(--green-700);  
+
+  z-index: 9;
 }
 
 .headerContent {
@@ -15,11 +17,14 @@
   align-items: center;
 
   .logo {
-    height: 3.5rem;
-    width: 3rem;
+    height: 4.5rem;
+    width: 4rem;
+    z-index: 8;
   }
   
   .loginButton {
     margin-left: auto;
+    z-index: 8;
   }
+
 }
