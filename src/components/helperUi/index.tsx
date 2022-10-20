@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import styles from "../../styles/helperui.module.scss";
-import stylesDashboard from "./styles.module.scss";
+import styles from "./styles.module.scss";
 import { useRouter } from "next/router";
 
 import logoHelperUi from "../../public/helperui.jpg";
@@ -26,8 +25,8 @@ export const HelperUi: React.FC = () => {
       <div
         className={
           router.pathname != "/dashboard"
-            ? styles.avatarContainer
-            : stylesDashboard.avatarContainer
+            ? styles.avatarContainerDashboard
+            : styles.avatarContainer
         }
         onClick={() => setOpenModal(true)}
       >
