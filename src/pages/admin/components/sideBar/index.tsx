@@ -3,10 +3,10 @@ import { VscTools } from "react-icons/vsc";
 import { BsQuestionSquare } from "react-icons/bs";
 
 import styles from "./styles.module.scss";
-import { RiLogoutBoxLine, RiLogoutCircleRFill } from "react-icons/ri";
+import { RiLogoutBoxLine } from "react-icons/ri";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 
-export const SideBar: React.FC = () => {
+const SideBar: React.FC = () => {
   return (
     <aside className={styles.aside}>
       <div className={styles.menu}>
@@ -48,3 +48,5 @@ export const SideBar: React.FC = () => {
     </aside>
   );
 };
+
+export default SideBar

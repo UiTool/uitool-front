@@ -6,8 +6,8 @@ import Link from "next/link";
 import { BsQuestionSquare } from "react-icons/bs";
 import { VscTools } from "react-icons/vsc";
 
-import { Header } from "./components/header";
-import { SideBar } from "./components/sideBar";
+import Header  from "./components/header";
+import SideBar from "./components/sideBar";
 
 import styles from "./styles.module.scss";
 

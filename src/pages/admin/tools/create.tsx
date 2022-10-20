@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { Header } from "../components/header";
-import { SideBar } from "../components/sideBar";
+import Header from "../components/header";
+import SideBar from "../components/sideBar";
 import { useForm } from "react-hook-form";
 import styles from "../styles.module.scss";
 import create from "./styles.module.scss";
