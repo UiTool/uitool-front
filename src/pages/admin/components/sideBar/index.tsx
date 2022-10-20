@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 
-const SideBar: React.FC = () => {
+export const SideBar: React.FC = () => {
   return (
     <aside className={styles.aside}>
       <div className={styles.menu}>
@@ -48,5 +48,3 @@ const SideBar: React.FC = () => {
     </aside>
   );
 };
-
-export default SideBar

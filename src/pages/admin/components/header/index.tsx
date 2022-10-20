@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 
 import new_logo from "../../../../public/new_logo.svg";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <header className={styles.container}>
       <div className={styles.content}>
@@ -16,4 +16,3 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header

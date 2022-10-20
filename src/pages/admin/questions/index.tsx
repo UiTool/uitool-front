@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import Header from "../components/header";
-import SideBar from "../components/sideBar";
+import { Header } from "../components/header";
+import { SideBar } from "../components/sideBar";
 import { useQuery } from "react-query";
 
 import { MdAddBox, MdOutlineDelete } from "react-icons/md";
