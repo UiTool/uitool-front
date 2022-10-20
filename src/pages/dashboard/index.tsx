@@ -178,8 +178,8 @@ const Dashboard: NextPage = () => {
         <div className={styles.container}>
           {tools?.map((tool, index) => {
             return (
-              <>
-                <div key={tool.id}>
+              <div key={tool.id}>
+                <div>
                   <Card
                     title={tool.name}
                     imgSrc={tool.image}
@@ -196,7 +196,7 @@ const Dashboard: NextPage = () => {
                   isOpen={modalOpen}
                   onClose={() => setModalOpen(false)}
                 />
-              </>
+              </div>
             );
           })}
         </div>
