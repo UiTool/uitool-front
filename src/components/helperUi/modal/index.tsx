@@ -58,8 +58,6 @@ export const Modal: React.FC<modalProps> = ({ open, onClose }: modalProps) => {
 
   };
 
-  console.log(answersTags)
-
   const {
     data: questions,
     isLoading,

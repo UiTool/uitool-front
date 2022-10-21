@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { HeaderAdmin } from "../../../components/admin/headerAdmin";
 import { SideBarAdmin } from "../../../components/admin/sideBarAdmin";
@@ -8,6 +8,7 @@ import create from "./styles.module.scss";
 import { api } from "../../../services/api";
 import  Router from "next/router";
 import { queryClient } from "../../../services/queryClient";
+import { getSession, useSession } from "next-auth/react";
 
 type CreateToolsFormSchema = {
   name: string;
@@ -22,7 +23,8 @@ type CreateToolsFormSchema = {
 };
 
 const CreateTools: NextPage = () => {
-
+  const {data: session } = useSession();
+  
   const {
     register,
     handleSubmit,
@@ -57,7 +59,7 @@ const CreateTools: NextPage = () => {
       link: data.link,
       categories: categories,
       tags: tags.map((tag) => { return tag.trim() })
-    })
+    } , { headers: {  'Authorization': `Bearer ${session?.accessToken}`}} )
 
     queryClient.invalidateQueries('tools')
     Router.push('/admin/tools')
@@ -140,3 +142,22 @@ const CreateTools: NextPage = () => {
 };
 
 export default CreateTools;
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  if(!session?.isAdmin) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {
+    },
+  };
+};

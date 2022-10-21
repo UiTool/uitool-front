@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { HeaderAdmin } from "../../../components/admin/headerAdmin";
 import { SideBarAdmin } from "../../../components/admin/sideBarAdmin";
@@ -8,6 +8,7 @@ import create from "./styles.module.scss";
 import { api } from "../../../services/api";
 import Router from "next/router";
 import { queryClient } from "../../../services/queryClient";
+import { getSession, useSession } from "next-auth/react";
 
 
 type CreateQuestionFormSchema = {
@@ -23,6 +24,7 @@ type CreateQuestionFormSchema = {
 };
 
 const CreateQuestions: NextPage = () => {
+  const { data: session } =useSession();
   const {
     register,
     handleSubmit,
@@ -61,7 +63,7 @@ const CreateQuestions: NextPage = () => {
     await api.post("questions", {
       question: data.question,
       answers: answers,
-    });
+    }, { headers: {  'Authorization': `Bearer ${session?.accessToken}`}}  );
 
     queryClient.invalidateQueries('questions')
     Router.push('/admin/questions')
@@ -147,3 +149,23 @@ const CreateQuestions: NextPage = () => {
 };
 
 export default CreateQuestions;
+
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  if(!session?.isAdmin) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {
+    },
+  };
+};

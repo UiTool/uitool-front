@@ -5,6 +5,7 @@ import { BsQuestionSquare } from "react-icons/bs";
 import styles from "./styles.module.scss";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { signOut } from "next-auth/react";
 
 export const SideBarAdmin: React.FC = () => {
   return (
@@ -36,12 +37,10 @@ export const SideBarAdmin: React.FC = () => {
         <div className={styles.section}>
           <h3>SESSION</h3>
           <div className={styles.options}>
-            <Link href="/admin/questions">
-              <a className={styles.option}>
+              <a style={{cursor: 'pointer'} }onClick={() => signOut({callbackUrl: '/login'})} className={styles.option}>
                 <RiLogoutBoxLine style={{fontSize: '1.25rem'}}/>
                 <p>Log Out</p>
               </a>
-            </Link>
           </div>
         </div>
       </div>

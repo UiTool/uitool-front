@@ -10,6 +10,8 @@ import { api } from "../../../../services/api";
 import { useTool } from "../../../../services/hooks/useTool";
 import { useMutation } from "react-query";
 import { queryClient } from "../../../../services/queryClient";
+import { getSession, useSession } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 
 type toolsType = {
   id: string;
@@ -39,7 +41,7 @@ type EditToolsFormSchema = {
 
 function EditTools({ id }: PropsTool) {
   const { data, isLoading } = useTool(id);
-  // const editTool = useMutation(async () =>  {})  
+  const {data: session } = useSession();
 
   const {
     register,
@@ -76,7 +78,7 @@ function EditTools({ id }: PropsTool) {
       tags: tags.map((tag) => {
         return tag.trim();
       }),
-    });
+    },  { headers: {  'Authorization': `Bearer ${session?.accessToken}`}} );
 
     queryClient.invalidateQueries(['tool', id]);
     queryClient.invalidateQueries('tools');
@@ -242,6 +244,16 @@ export default EditTools;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
+  const session = await getSession(context)
+
+  if(!session?.isAdmin) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
 
   return {
     props: {

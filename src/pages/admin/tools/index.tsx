@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { HeaderAdmin } from "../../../components/admin/headerAdmin";
 import { SideBarAdmin } from "../../../components/admin/sideBarAdmin";
 
@@ -11,6 +11,7 @@ import Link from "next/link";
 import { api } from "../../../services/api";
 import { useQuery } from "react-query";
 import { queryClient } from "../../../services/queryClient";
+import { getSession, useSession } from "next-auth/react";
 
 type toolsType = {
   id: string;
@@ -23,6 +24,8 @@ type toolsType = {
 };
 
 const Tools: NextPage = () => {
+  const {data: session} = useSession();
+
   const {
     data: toolsList,
     isLoading,
@@ -59,7 +62,7 @@ const Tools: NextPage = () => {
     if (!confirm(`Are you sure you want to exclude ${name} tool?`))
       return alert(`${name} Tool Not Excluded`);
 
-    await api.delete(`tools/${id}`);
+    await api.delete(`tools/${id}`, { headers: {  'Authorization': `Bearer ${session?.accessToken}`}});
 
     alert(`Deleted ${name}`);
   
@@ -163,3 +166,22 @@ const Tools: NextPage = () => {
 };
 
 export default Tools;
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  if(!session?.isAdmin) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {
+    },
+  };
+};

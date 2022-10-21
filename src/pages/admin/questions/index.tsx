@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { HeaderAdmin } from "../../../components/admin/headerAdmin";
 import { SideBarAdmin } from "../../../components/admin/sideBarAdmin";
 import { useQuery } from "react-query";
@@ -11,6 +11,7 @@ import questions from "./styles.module.scss";
 import Link from "next/link";
 import { api } from "../../../services/api";
 import { queryClient } from "../../../services/queryClient";
+import { getSession, useSession } from "next-auth/react";
 
 type Answer = {
   answer: string;
@@ -24,6 +25,7 @@ type questionType = {
 };
 
 const Questions: NextPage = () => {
+  const { data: session } = useSession();
   const {
     data: questionsList,
     isLoading,
@@ -42,13 +44,11 @@ const Questions: NextPage = () => {
     staleTime: 1000 * 60 * 10, // 10 minutes
   });
 
-  console.log(questionsList);
-
   async function handleDeleteQuestion(id: string) {
     if (!confirm("Are you sure you want to exclude this question?"))
       return alert("Question Not Excluded");
 
-    await api.delete(`questions/${id}`);
+    await api.delete(`questions/${id}`,  { headers: {  'Authorization': `Bearer ${session?.accessToken}`}} );
 
     alert("Deleted Question");
 
@@ -127,3 +127,22 @@ const Questions: NextPage = () => {
 };
 
 export default Questions;
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  if(!session?.isAdmin) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {
+    },
+  };
+};

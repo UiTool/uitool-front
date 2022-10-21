@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import { api } from "../../../../services/api";
 import { useQuestion } from "../../../../services/hooks/useQuestion";
 import { queryClient } from "../../../../services/queryClient";
+import { getSession, useSession } from "next-auth/react";
 
 type Answers = {
   answer: string;
@@ -40,6 +41,7 @@ type EditQuestionFormSchema = {
 
 function EditQuestion({id}: PropsQuestion) {
   const { data, isLoading } = useQuestion(id);
+  const { data: session } = useSession(); 
 
   const {
     register, handleSubmit, formState: { errors, isSubmitting },
@@ -77,7 +79,7 @@ function EditQuestion({id}: PropsQuestion) {
     await api.put(`questions/${id}`, {
       question: data.question,
       answers: answers,
-    });
+    }, { headers: {  'Authorization': `Bearer ${session?.accessToken}`}} );
 
     
 
@@ -215,10 +217,18 @@ function EditQuestion({id}: PropsQuestion) {
 export default EditQuestion;
 
 
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
- 
   const id = context.params?.id;
+  const session = await getSession(context)
+
+  if(!session?.isAdmin) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
 
   return {
     props: {
