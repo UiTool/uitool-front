@@ -7,6 +7,7 @@ import styles from "../styles.module.scss";
 import create from "./styles.module.scss";
 import { api } from "../../../services/api";
 import Router from "next/router";
+import { queryClient } from "../../../services/queryClient";
 
 
 type CreateQuestionFormSchema = {
@@ -62,6 +63,7 @@ const CreateQuestions: NextPage = () => {
       answers: answers,
     });
 
+    queryClient.invalidateQueries('questions')
     Router.push('/admin/questions')
   }
 

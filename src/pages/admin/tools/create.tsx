@@ -7,6 +7,7 @@ import styles from "../styles.module.scss";
 import create from "./styles.module.scss";
 import { api } from "../../../services/api";
 import  Router from "next/router";
+import { queryClient } from "../../../services/queryClient";
 
 type CreateToolsFormSchema = {
   name: string;
@@ -58,6 +59,7 @@ const CreateTools: NextPage = () => {
       tags: tags.map((tag) => { return tag.trim() })
     })
 
+    queryClient.invalidateQueries('tools')
     Router.push('/admin/tools')
   };
 

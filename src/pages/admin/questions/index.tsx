@@ -10,6 +10,7 @@ import styles from "../styles.module.scss";
 import questions from "./styles.module.scss";
 import Link from "next/link";
 import { api } from "../../../services/api";
+import { queryClient } from "../../../services/queryClient";
 
 type Answer = {
   answer: string;
@@ -26,7 +27,6 @@ const Questions: NextPage = () => {
   const {
     data: questionsList,
     isLoading,
-    error,
   } = useQuery<questionType[]>("questions", async () => {
     const response = await api.get("questions");
     const { data } = response;
@@ -38,6 +38,8 @@ const Questions: NextPage = () => {
         answers: question.answers,
       };
     });
+  }, {
+    staleTime: 1000 * 60 * 10, // 10 minutes
   });
 
   console.log(questionsList);
@@ -50,7 +52,7 @@ const Questions: NextPage = () => {
 
     alert("Deleted Question");
 
-    window.location.reload();
+    queryClient.invalidateQueries('questions');
   }
 
   return !isLoading ?  (

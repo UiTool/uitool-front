@@ -8,6 +8,8 @@ import create from "../styles.module.scss";
 import Router from "next/router";
 import { useQuery } from "react-query";
 import { api } from "../../../../services/api";
+import { useQuestion } from "../../../../services/hooks/useQuestion";
+import { queryClient } from "../../../../services/queryClient";
 
 type Answers = {
   answer: string;
@@ -21,8 +23,6 @@ type questionType = {
 }
 
 type PropsQuestion = {
-  question: questionType;
-  isLoading: boolean;
   id: string;
 }
 
@@ -38,17 +38,9 @@ type EditQuestionFormSchema = {
   tags4: string;
 };
 
-function EditQuestion({ question, isLoading, id }: PropsQuestion) {
-  // const { id } = Router.query;
-  // const {
-  //   data: question,
-  //   isLoading,
-  //   error,
-  // } = useQuery<questionType>(`question:${id}`, async () => {
-  //   const response = await api.get(`questions/${id}`);
-  //   const { data } = response
-  //   return data;
-  // });
+function EditQuestion({id}: PropsQuestion) {
+  const { data, isLoading } = useQuestion(id);
+
   const {
     register, handleSubmit, formState: { errors, isSubmitting },
   } = useForm<EditQuestionFormSchema>({});
@@ -87,6 +79,11 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
       answers: answers,
     });
 
+    
+
+    queryClient.invalidateQueries(['question', id]);
+    queryClient.invalidateQueries('questions');
+
     Router.push('/admin/questions');
   }
 
@@ -109,7 +106,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                 <label>Question</label>
                 <input
                   type="text"
-                  defaultValue={question?.question}
+                  defaultValue={data?.question?.question}
                   required
                   {...register("question")} />
               </div>
@@ -118,7 +115,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label className={create.description}>Answer 1</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[0].answer}
+                    defaultValue={data?.question?.answers[0].answer}
                     required
                     {...register("answer1")} />
                 </div>
@@ -126,7 +123,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label>Tags</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[0].tags.toString()}
+                    defaultValue={data?.question?.answers[0].tags.toString()}
                     required
                     {...register("tags1")} />
                 </div>
@@ -136,7 +133,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label className={create.description}>Answer 2</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[1].answer}
+                    defaultValue={data?.question?.answers[1].answer}
                     required
                     {...register("answer2")} />
                 </div>
@@ -144,7 +141,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label>Tags</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[1].tags.toString()}
+                    defaultValue={data?.question?.answers[1].tags.toString()}
                     required
                     {...register("tags2")} />
                 </div>
@@ -154,7 +151,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label className={create.description}>Answer 3</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[2].answer}
+                    defaultValue={data?.question?.answers[2].answer}
                     required
                     {...register("answer3")} />
                 </div>
@@ -162,7 +159,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label>Tags</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[2].tags.toString()}
+                    defaultValue={data?.question?.answers[2].tags.toString()}
                     required
                     {...register("tags3")} />
                 </div>
@@ -172,7 +169,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label className={create.description}>Answer 4</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[3].answer}
+                    defaultValue={data?.question?.answers[3].answer}
                     required
                     {...register("answer4")} />
                 </div>
@@ -180,7 +177,7 @@ function EditQuestion({ question, isLoading, id }: PropsQuestion) {
                   <label>Tags</label>
                   <input
                     type="text"
-                    defaultValue={question?.answers[3].tags.toString()}
+                    defaultValue={data?.question?.answers[3].tags.toString()}
                     required
                     {...register("tags4")} />
                 </div>
@@ -220,36 +217,11 @@ export default EditQuestion;
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  //const session = await getSession({ req })
+ 
   const id = context.params?.id;
-  const question = '';
-  const isLoading = '';
-
-  // if (!session?.activeSubscription) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false,
-  //     }
-  //   }
-  // }
-
-
-  // const {
-  //   data: question,
-  //   isLoading,
-  //   error,
-  // } = useQuery<questionType>(`question:${id}`, async () => {
-  //   const response = await api.get(`questions/${id}`);
-  //   const { data } = response
-  //   return data;
-    
-  // });
 
   return {
     props: {
-      question,
-      isLoading,
       id,
     }
   }
