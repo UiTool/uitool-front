@@ -7,6 +7,7 @@ import "swiper/css";
 import { useQuery } from "react-query";
 import { api } from "../../../services/api";
 import { useState } from "react";
+import Link from "next/link";
 
 type Answer = {
   answer: string;
@@ -75,6 +76,7 @@ export const Modal: React.FC<modalProps> = ({ open, onClose }: modalProps) => {
     });
   });
 
+
   return !open ? null : (
     <div className={styles.overlay}>
       <Swiper
@@ -135,7 +137,9 @@ export const Modal: React.FC<modalProps> = ({ open, onClose }: modalProps) => {
             </p>
             <h2>Congratulations!</h2>
             <p>Here are the tools that will help you best.</p>
-            <button onClick={() => console.log("clicado")}>Tools</button>
+            <Link href={`/usertools/${answersTags}`}>
+              <button>Tools</button>
+            </Link>
           </div>
         </SwiperSlide>
       </Swiper>

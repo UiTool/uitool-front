@@ -7,14 +7,15 @@ import { useState, useRef, useEffect } from "react";
 import { BsPersonCircle, BsPersonFill } from "react-icons/bs";
 import { MdSpaceDashboard } from "react-icons/md";
 import { RiLogoutCircleRFill } from "react-icons/ri";
+import { GoGear } from "react-icons/go"
 
 import styles from "./styles.module.scss";
 
-type Props  = {
-  color?: string
-}
+type Props = {
+  color?: string;
+};
 
-export const LoginMenu: React.FC<Props> = ({color="white"}) => {
+export const LoginMenu: React.FC<Props> = ({ color = "white" }) => {
   const { data: session } = useSession();
 
   const [show, setShow] = useState(false);
@@ -28,7 +29,11 @@ export const LoginMenu: React.FC<Props> = ({color="white"}) => {
 
   return session ? (
     <div ref={parent}>
-      <div style={{color: color}}onClick={reveal} className={styles.menuButton}>
+      <div
+        style={{ color: color }}
+        onClick={reveal}
+        className={styles.menuButton}
+      >
         <BsPersonCircle />
         {session.user?.name}
       </div>
@@ -40,8 +45,18 @@ export const LoginMenu: React.FC<Props> = ({color="white"}) => {
               Dashboard
             </a>
           </Link>
+          {session.isAdmin ? (
+            <Link href="/admin">
+              <a>
+                <GoGear />
+                Setup
+              </a>
+            </Link>
+          ) : (
+            <></>
+          )}
           <Link href="/login">
-            <a onClick={() => signOut({callbackUrl: "/login"})}>
+            <a onClick={() => signOut({ callbackUrl: "/login" })}>
               <RiLogoutCircleRFill />
               Logout
             </a>
@@ -51,11 +66,19 @@ export const LoginMenu: React.FC<Props> = ({color="white"}) => {
     </div>
   ) : (
     <div className={styles.buttons}>
-      <button onClick={() => Router.push("/login")}  type="button" className={styles.loginButton}>
+      <button
+        onClick={() => Router.push("/login")}
+        type="button"
+        className={styles.loginButton}
+      >
         <BsPersonFill />
         Login
       </button>
-      <button onClick={() => Router.push("/signup")} type="button" className={styles.signupButton}>
+      <button
+        onClick={() => Router.push("/signup")}
+        type="button"
+        className={styles.signupButton}
+      >
         Sign Up
       </button>
     </div>
