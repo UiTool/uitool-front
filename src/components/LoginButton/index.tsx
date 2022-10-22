@@ -55,12 +55,12 @@ export const LoginMenu: React.FC<Props> = ({ color = "white" }) => {
           ) : (
             <></>
           )}
-          <Link href="/login">
-            <a onClick={() => signOut({ callbackUrl: "/login" })}>
+          {/* <Link href="/login"> */}
+            <a style={{cursor: 'pointer'}}onClick={() => signOut({ callbackUrl: "/login" })}>
               <RiLogoutCircleRFill />
               Logout
             </a>
-          </Link>
+          {/* </Link> */}
         </nav>
       )}
     </div>

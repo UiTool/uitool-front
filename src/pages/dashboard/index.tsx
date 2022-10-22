@@ -77,7 +77,7 @@ const Dashboard: NextPage = () => {
       const response = await api.get("tools/category/research");
       const { data } = response;
 
-      return data.map((tool: toolsType) => {
+      const dataTools = data.map((tool: toolsType) => {
         return {
           id: tool.id,
           name: tool.name,
@@ -88,8 +88,13 @@ const Dashboard: NextPage = () => {
           categories: tool.categories,
         };
       });
+
+      setTools(dataTools);
+      return dataTools;
     }
   );
+
+  
 
   const { data: toolsIdeation } = useQuery<toolsType[]>(
     "ideation",
@@ -151,15 +156,19 @@ const Dashboard: NextPage = () => {
     }
   );
   const handleResearch = async () => {
+    setModalOpen(false)
     setTools(toolsResearch);
   };
   const handlePrototyping = async () => {
+    setModalOpen(false)
     setTools(toolsPrototyping);
   };
   const handleIdeation = async () => {
+    setModalOpen(false)
     setTools(toolsIdeation);
   };
   const handleEvaluation = async () => {
+    setModalOpen(false)
     setTools(toolsEvaluation);
   };
 
