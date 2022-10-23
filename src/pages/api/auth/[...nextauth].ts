@@ -56,6 +56,7 @@ export const authOptions = {
   ],
   pages: {
     signIn: "/login",
+    error: "/login"
   },
   jwt: {
     secret:

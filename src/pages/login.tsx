@@ -91,13 +91,13 @@ const Login: NextPage = () => {
             <p className={styles.errorMessage}>{errors.password.message}</p>
           )}
           <div className={styles.remember_sign_in}>
-            <input
+            {/* <input
               className={styles.check}
               type="checkbox"
               placeholder="Remember me"
               id="check"
             />
-            <span>Remember me</span>
+            <span>Remember me</span> */}
             <button type="submit" disabled={isSubmitting}>
               Sign in
             </button>

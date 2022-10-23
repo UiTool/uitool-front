@@ -26,36 +26,39 @@ type questionType = {
 
 const Questions: NextPage = () => {
   const { data: session } = useSession();
-  const {
-    data: questionsList,
-    isLoading,
-  } = useQuery<questionType[]>("questions", async () => {
-    const response = await api.get("questions");
-    const { data } = response;
+  const { data: questionsList, isLoading } = useQuery<questionType[]>(
+    "questions",
+    async () => {
+      const response = await api.get("questions");
+      const { data } = response;
 
-    return data.map((question: questionType) => {
-      return {
-        id: question.id,
-        question: question.question,
-        answers: question.answers,
-      };
-    });
-  }, {
-    staleTime: 1000 * 60 * 10, // 10 minutes
-  });
+      return data.map((question: questionType) => {
+        return {
+          id: question.id,
+          question: question.question,
+          answers: question.answers,
+        };
+      });
+    },
+    {
+      staleTime: 1000 * 60 * 10, // 10 minutes
+    }
+  );
 
   async function handleDeleteQuestion(id: string) {
     if (!confirm("Are you sure you want to exclude this question?"))
       return alert("Question Not Excluded");
 
-    await api.delete(`questions/${id}`,  { headers: {  'Authorization': `Bearer ${session?.accessToken}`}} );
+    await api.delete(`questions/${id}`, {
+      headers: { Authorization: `Bearer ${session?.accessToken}` },
+    });
 
     alert("Deleted Question");
 
-    queryClient.invalidateQueries('questions');
+    queryClient.invalidateQueries("questions");
   }
 
-  return !isLoading ?  (
+  return !isLoading ? (
     <div className={styles.container}>
       <HeaderAdmin />
       <div className={styles.content}>
@@ -86,7 +89,7 @@ const Questions: NextPage = () => {
                   <tr key={question.id}>
                     <td style={{ fontWeight: "bold" }}>{question.question}</td>
                     <td style={{ width: "8rem" }}>
-                      <Link href={`/admin/questions/edit/${question.id}`} >
+                      <Link href={`/admin/questions/edit/${question.id}`}>
                         <a>
                           <button className={questions.button}>
                             <BsPencilSquare style={{ fontSize: "15px" }} />
@@ -118,8 +121,36 @@ const Questions: NextPage = () => {
       <HeaderAdmin />
       <div className={styles.content}>
         <SideBarAdmin />
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}className={styles.main}>
-          <div className={styles.lds_roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div className={styles.main}>
+          <div className={questions.questions}>
+            <h2>Questions</h2>
+            <Link href="/admin/questions/create">
+              <a>
+                <button style={{ width: "10rem" }}>
+                  <MdAddBox />
+                  <div className={questions.p}>New Question</div>
+                </button>
+              </a>
+            </Link>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div className={styles.lds_roller}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -128,21 +159,19 @@ const Questions: NextPage = () => {
 
 export default Questions;
 
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
+  const session = await getSession(context);
 
-  if(!session?.isAdmin) {
+  if (!session?.isAdmin) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
-      }
-    }
+      },
+    };
   }
 
   return {
-    props: {
-    },
+    props: {},
   };
 };

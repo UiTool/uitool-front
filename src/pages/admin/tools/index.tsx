@@ -24,49 +24,56 @@ type toolsType = {
 };
 
 const Tools: NextPage = () => {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
-  const {
-    data: toolsList,
-    isLoading,
-  } = useQuery<toolsType[]>("tools", async () => {
-    const response = await api.get("tools");
-    const { data } = response;
+  const { data: toolsList, isLoading } = useQuery<toolsType[]>(
+    "tools",
+    async () => {
+      const response = await api.get("tools");
+      const { data } = response;
 
-    return data.map((tool: toolsType) => {
-      return {
-        id: tool.id,
-        name: tool.name,
-        description: tool.description,
-        image: tool.image,
-        link: tool.image,
-        tags: tool.tags,
-        categories: tool.categories,
-      };
-    });
-  }, {
-    staleTime: 1000 * 60 * 10, // 10 minutes
-  });
+      return data.map((tool: toolsType) => {
+        return {
+          id: tool.id,
+          name: tool.name,
+          description: tool.description,
+          image: tool.image,
+          link: tool.image,
+          tags: tool.tags,
+          categories: tool.categories,
+        };
+      });
+    },
+    {
+      staleTime: 1000 * 60 * 10, // 10 minutes
+    }
+  );
 
   async function handlePrefetchUser(id: string) {
-    await queryClient.prefetchQuery(['user', id], async () => {
-      const response = await api.get(`tools/${id}`)
+    await queryClient.prefetchQuery(
+      ["user", id],
+      async () => {
+        const response = await api.get(`tools/${id}`);
 
-      return response.data;
-    }, {
-      staleTime: 1000 * 60 * 10, // 10 minutes
-    })
+        return response.data;
+      },
+      {
+        staleTime: 1000 * 60 * 10, // 10 minutes
+      }
+    );
   }
 
   async function handleDeleteTool(id: string, name: string) {
     if (!confirm(`Are you sure you want to exclude ${name} tool?`))
       return alert(`${name} Tool Not Excluded`);
 
-    await api.delete(`tools/${id}`, { headers: {  'Authorization': `Bearer ${session?.accessToken}`}});
+    await api.delete(`tools/${id}`, {
+      headers: { Authorization: `Bearer ${session?.accessToken}` },
+    });
 
     alert(`Deleted ${name}`);
-  
-    queryClient.invalidateQueries('tools')
+
+    queryClient.invalidateQueries("tools");
   }
 
   return !isLoading ? (
@@ -141,23 +148,35 @@ const Tools: NextPage = () => {
       <HeaderAdmin />
       <div className={styles.content}>
         <SideBarAdmin />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          className={styles.main}
-        >
-          <div className={styles.lds_roller}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div className={styles.main}>
+          <div className={tools.tools}>
+            <h2>Tools</h2>
+            <Link href="/admin/tools/create">
+              <a>
+                <button>
+                  <MdAddBox />
+                  <div className={tools.p}>New Tools</div>
+                </button>
+              </a>
+            </Link>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div className={styles.lds_roller}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -167,21 +186,19 @@ const Tools: NextPage = () => {
 
 export default Tools;
 
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
+  const session = await getSession(context);
 
-  if(!session?.isAdmin) {
+  if (!session?.isAdmin) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
-      }
-    }
+      },
+    };
   }
 
   return {
-    props: {
-    },
+    props: {},
   };
 };

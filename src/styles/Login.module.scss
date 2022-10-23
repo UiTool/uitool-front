@@ -65,10 +65,12 @@
   }
 
   .login_data {
-    @include define_size(20.625rem, 3.75rem);
+    //@include define_size(20.625rem, 3.75rem);
+    width: 100%;
+    height: 50px;
     margin-top: 1.25rem;
-    padding-left: 1.875rem;
-    border-radius: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
     border: 0.0625rem SOLID BLACK;
   }
 }
@@ -77,11 +79,16 @@
   margin-top: 1.875rem;
 
   button {
-    @include btn-format(10rem);
+    //@include btn-format(10rem);
+
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+
     color: white;
     background-color: #a66226;
     border: none;
-    margin-left: 1.3125rem;
+    //margin-left: 1.3125rem;
     cursor: pointer;
 
     transition: filter 0.2s;
@@ -143,6 +150,7 @@
   .sign_in {
     order: -1;
     margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .separation {

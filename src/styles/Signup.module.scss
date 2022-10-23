@@ -61,10 +61,13 @@
     margin-bottom: 0.625rem;
   }
   .login_data{
-    @include define_size(20.625rem, 3rem);
+    //@include define_size(20.625rem, 3rem);
+
+    width: 100%;
+    height: 50px;
     margin-top: 1.25rem;
-    padding-left: 1rem;
-    border-radius: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
     border: 0.0625rem SOLID BLACK;
   }
 }
@@ -72,7 +75,11 @@
   margin-top: 1.875rem;
 
   button{
-    @include btn-format(100%);
+    //@include btn-format(100%);
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+
     color: white;
     background-color: #a66226;
     border: none;

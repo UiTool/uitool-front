@@ -42,8 +42,8 @@
   .login_data{
     @include define_size(20.625rem, 3rem);
     margin-top: 1.25rem;
-    padding-left: 1rem;
-    border-radius: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
     border: 0.0625rem SOLID BLACK;
   }
 }
