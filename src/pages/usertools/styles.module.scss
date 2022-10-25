@@ -32,6 +32,27 @@
   }
 }
 
+.moretools_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+  width: 20rem;
+  height: 10rem;
+  background-color: transparent;
+  cursor: pointer;
+
+  &>p {
+    text-align: center;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+
 .modal_open {
   display: block !important;
 }

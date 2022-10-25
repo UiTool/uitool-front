@@ -1,9 +1,11 @@
 import { GetServerSideProps } from "next";
 import { useState } from "react";
-import { useQuery } from "react-query";
 import { Header } from "../../components/header";
 import { api } from "../../services/api";
 import styles from "./styles.module.scss";
+
+import { IoMdAddCircle } from "react-icons/io";
+import Link from "next/link";
 
 type toolsType = {
   id: string;
@@ -101,6 +103,16 @@ function UserTools({ tools, toolsAvailable }: PropsTool) {
                 </div>
               );
             })}
+            <Link href="/dashboard">
+              <div className={styles.moretools_card}>
+                <a>
+                  <IoMdAddCircle
+                    style={{ fontSize: "3rem", color: "#8b4d17" }}
+                  />
+                </a>
+                <p>Explore More Tools</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -121,14 +133,13 @@ function UserTools({ tools, toolsAvailable }: PropsTool) {
 export default UserTools;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  
-  const  tags = context.params?.tags
- 
-try {
-  const response = await api.get(`tools/tags/${tags}`)
-  
-  const { data } = response;
-  const tools = data.map((tool: toolsType) => {
+  const tags = context.params?.tags;
+
+  try {
+    const response = await api.get(`tools/tags/${tags}`);
+
+    const { data } = response;
+    const tools = data.map((tool: toolsType) => {
       return {
         id: tool.id,
         name: tool.name,
@@ -138,21 +149,20 @@ try {
         tags: tool.tags,
         categories: tool.categories,
       };
-  });
+    });
 
-  return {
-    props: {
-      tools,
-      toolsAvailable: true,
-    },
-  };
-} catch (error) {
-  return {
-    props: {
-      tools: [],
-      toolsAvailable: false,
-    },
-  };
-}
-
+    return {
+      props: {
+        tools,
+        toolsAvailable: true,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        tools: [],
+        toolsAvailable: false,
+      },
+    };
+  }
 };

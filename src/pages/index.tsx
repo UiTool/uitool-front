@@ -35,10 +35,14 @@ const Home: NextPage = () => {
           </span>
         </div>
         <div className={styles.videoInfo}>
-          <h2>Lorem Ipsun</h2>
+          <h2>Welcome UI Tools</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a
-            ligula ipsum. Suspendisse vel nibh nec eros dapibus malesuada.
+            This is an application that provides an aggregate of tools to
+            facilitate the search for solutions for the moment in which your
+            software finds itself.  <br/>The tools are laid out in a dashboard
+            organized around the four processes of user-centered design.
+            <br/> <br/>
+            You can also use Helper Ui to find the best tools for your current moment.
           </p>
         </div>
       </div>
