@@ -20,6 +20,7 @@ export const SideBarAdmin: React.FC = () => {
                 <p>Dashboard</p>
               </a>
             </Link>
+            
             <Link href="/admin/tools">
               <a className={styles.option}>
                 <VscTools />
