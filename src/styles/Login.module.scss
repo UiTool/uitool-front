@@ -29,9 +29,10 @@
 
 .buttons {
   display: flex;
-  flex-direction: column;
-  gap: 3.125rem;
-  margin-top: 10.6875rem;
+  justify-content: center;
+  align-items: center;
+  //gap: 3.125rem;
+  //margin-top: 10.6875rem;
   margin-left: 5.625rem;
 
   a {

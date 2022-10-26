@@ -2,10 +2,8 @@ import Image from "next/image";
 import type { NextPage } from "next";
 import { Header } from "../components/header";
 import styles from "../styles/Login.module.scss";
-import google_button from "../public/google_button.svg";
-import face_button from "../public/face_button.svg";
+import google_button from "../../public/google_button.svg";
 import Link from "next/link";
-import { useState } from "react";
 import { signIn } from "next-auth/react";
 import * as y from "yup";
 import { useForm } from "react-hook-form";
@@ -59,9 +57,6 @@ const Login: NextPage = () => {
         <div className={styles.buttons}>
           <a onClick={() => signIn("google", { callbackUrl: "/" })}>
             <Image src={google_button} alt="Login with google" />
-          </a>
-          <a href="#">
-            <Image src={face_button} alt="Login with facebook" />
           </a>
         </div>
 

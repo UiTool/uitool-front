@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Header } from "../components/header";
-import google_button from "../public/google_button.svg";
-import face_button from "../public/face_button.svg";
+import google_button from "../../public/google_button.svg";
 import { api } from "../services/api";
 
 import styles from "../styles/Signup.module.scss";
@@ -11,6 +10,7 @@ import Router from "next/router";
 import { useForm } from "react-hook-form";
 import * as y from "yup";
 import { yupResolver} from '@hookform/resolvers/yup'
+import { signIn } from "next-auth/react";
 
 type RegisterFormSchema = {
   name: string;
@@ -63,11 +63,8 @@ const Signup: NextPage = () => {
 
       <section className={styles.container}>
         <div className={styles.buttons}>
-          <a href="#">
+          <a onClick={() => signIn("google", { callbackUrl: "/" })}>
             <Image src={google_button} alt="Login with google" />
-          </a>
-          <a href="#">
-            <Image src={face_button} alt="Login with facebook" />
           </a>
         </div>
 

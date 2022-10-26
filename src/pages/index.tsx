@@ -4,7 +4,6 @@ import { Footer } from "../components/footer";
 
 import styles from "../styles/Home.module.scss";
 import { useEffect, useRef } from "react";
-import { useSession } from "next-auth/react";
 import { HelperUi } from "../components/helperUi";
 
 const Home: NextPage = () => {

@@ -4,8 +4,7 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 import { useRouter } from "next/router";
 
-import logoHelperUi from "../../public/helperui.jpg";
-import robot from "../../public/robot.png";
+import robot from "../../../public/robot.png";
 import { Modal } from "./modal";
 
 export const HelperUi: React.FC = () => {
