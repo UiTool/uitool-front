@@ -16,6 +16,12 @@
   display: flex;
   align-items: center;
 
+  h1{
+    font-size: 1rem;
+    margin-right: 1rem;
+    color:white;    
+  }
+
   .logo {
     height: 4.5rem;
     width: 4rem;
@@ -25,6 +31,11 @@
   .loginButton {
     margin-left: auto;
     z-index: 8;
+  }
+
+  .logo_name {
+    display: flex;
+    gap: 1rem;
   }
 
 }

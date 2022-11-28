@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
         <Image src={logo} alt="Logo UI Tools" />
       </span>
       <div className={styles.textArea}>
-        <p>Telefone: (99) 12345-6789</p>
+        <p>Telefone: (15) 3229-7422</p>
         <p>Endereço: Rdv. João Leme dos Santos, Km 110 | <br/>Bairro Itinga Sorocaba – SP – Brazil</p>
       </div>
     </footer>

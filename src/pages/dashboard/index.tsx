@@ -14,6 +14,7 @@ interface ModalProps {
   image: string;
   description: string;
   isOpen: boolean;
+  linkTool: string;
   onClose(): void;
 }
 const Modal: React.FC<ModalProps> = ({
@@ -22,17 +23,18 @@ const Modal: React.FC<ModalProps> = ({
   title,
   description,
   image,
+  linkTool,
 }) => {
   return (
     <div
       className={`${styles.modal_container} ${isOpen ? styles.modal_open : ""}`}
     >
       <p className={styles.modal_btnClose} onClick={() => onClose()}>
-        Fechar
+        Close
       </p>
       <div>
-        <h1>{title}</h1>
-        <img src={image} alt="tools" />
+        <a href={linkTool}><h1>{title}</h1></a>
+        <a href={linkTool}><img src={image} alt="tools"/></a>
       </div>
       <h3>Description</h3>
       <p>{description}</p>
@@ -83,7 +85,7 @@ const Dashboard: NextPage = () => {
           name: tool.name,
           description: tool.description,
           image: tool.image,
-          link: tool.image,
+          link: tool.link,
           tags: tool.tags,
           categories: tool.categories,
         };
@@ -108,7 +110,7 @@ const Dashboard: NextPage = () => {
           name: tool.name,
           description: tool.description,
           image: tool.image,
-          link: tool.image,
+          link: tool.link,
           tags: tool.tags,
           categories: tool.categories,
         };
@@ -128,7 +130,7 @@ const Dashboard: NextPage = () => {
           name: tool.name,
           description: tool.description,
           image: tool.image,
-          link: tool.image,
+          link: tool.link,
           tags: tool.tags,
           categories: tool.categories,
         };
@@ -148,7 +150,7 @@ const Dashboard: NextPage = () => {
           name: tool.name,
           description: tool.description,
           image: tool.image,
-          link: tool.image,
+          link: tool.link,
           tags: tool.tags,
           categories: tool.categories,
         };
@@ -201,6 +203,7 @@ const Dashboard: NextPage = () => {
                   title={tools[toolIndex]?.name}
                   image={tools[toolIndex]?.image}
                   description={tools[toolIndex]?.description}
+                  linkTool={tools[toolIndex]?.link}
                   isOpen={modalOpen}
                   onClose={() => setModalOpen(false)}
                 />

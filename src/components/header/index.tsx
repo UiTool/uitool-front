@@ -10,6 +10,7 @@ export const Header: React.FC = () => {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
+        <h1>EUXT <br></br> Exploring <br></br> UX Tools</h1>
         <div className={styles.logo}>
           <Link href="/">
             <a>

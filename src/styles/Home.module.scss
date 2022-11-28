@@ -24,6 +24,11 @@
   background-color: var(--green-500);
   margin-bottom: 3.125rem;
   text-align: center;
+
+  a {
+    color: rgb(243, 243, 243);
+    font-weight: 700;
+  }
 }
 
 .avatarContainer {
