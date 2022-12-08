@@ -35,7 +35,7 @@ const Home: NextPage = () => {
           </span>
         </div>
         <div className={styles.videoInfo}>
-          <h2>Welcome UI Tools</h2>
+          <h2>Welcome EUXT - Exploring UX Tools</h2>
           <p>
             This is an application that provides an aggregate of tools to
             facilitate the search for solutions for the moment in which your
